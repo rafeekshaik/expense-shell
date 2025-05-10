@@ -33,14 +33,22 @@ fi
 echo "script executed at :: $TIMESTAMP"
 CHECK_ROOT
 
-dnf install mysql-server -y
+dnf install mysql-server -y &>>$LOG_FILE_NAME
 VALIDATE $? "installing mysql server"
 
-systemctl enable mysqld
+systemctl enable mysqld &>>$LOG_FILE_NAME
 VALIDATE $? "enabling mysql server"
 
-systemctl start mysqld
+systemctl start mysqld &>>$LOG_FILE_NAME
 VALIDATE $? "starting mysql server"
 
-mysql_secure_installation --set-root-pass ExpenseApp@1
+mysql -h mysql.daws17s.online -u root -pExpenseApp@1 -e 'show databases;'
+if [$? -ne 0]
+then
+
+mysql_secure_installation --set-root-pass ExpenseApp@1 &>>$LOG_FILE_NAME
 VALIDATE $? "setting up the root password"
+
+else
+echo "mysql root password all ready set up skipping"
+fi
