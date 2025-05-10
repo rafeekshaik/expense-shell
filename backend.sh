@@ -68,7 +68,7 @@ cd /app
 npm install &>>$LOG_FILE_NAME
 VALIDATE $? "instlling dependencies"
 
-cp /home/ec2-user/backend.service /etc/systemd/system/backend.service
+cp /home/ec2-user/expense-shell/backend.service /etc/systemd/system/backend.service
 
 dnf install mysql -y &>>$LOG_FILE_NAME
 VALIDATE $? "installing mysql client"
