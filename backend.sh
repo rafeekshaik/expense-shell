@@ -44,13 +44,13 @@ VALIDATE $? "enabling nodejs 20"
 dnf install nodejs -y &>>$LOG_FILE_NAME
 VALIDATE $? "installing node js"
 
-# id expense
-# if [ $? -ne 0 ]
-# then
+id expense
+if [ $? -ne 0 ]
+then
 useradd expense &>>$LOG_FILE_NAME
 VALIDATE $? "adding expense user"
-# else
-# echo "expense user allready exist.... skipping"
+else
+echo "expense user allready exist.... skipping"
 
 mkdir -p /app &>>$LOG_FILE_NAME
 VALIDATE $? "creating app directory"
@@ -59,7 +59,7 @@ curl -o /tmp/backend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expen
 VALIDATE $? "downloading application code"
 
 cd /app
-# rm -rf /app/*
+rm -rf /app/*
 unzip /tmp/backend.zip &>>$LOG_FILE_NAME
 VALIDATE $? "unzipping the code"
 
@@ -77,7 +77,7 @@ mysql -h <MYSQL-SERVER-IPADDRESS> -uroot -pExpenseApp@1 < /app/schema/backend.sq
 VALIDATE $? "loading the schema into the database"
 
 systemctl daemon-reload &>>$LOG_FILE_NAME
-VALIDATE $? "demon reload"
+VALIDATE $? "demon reload hh"
 
 systemctl enable backend &>>$LOG_FILE_NAME
 VALIDATE $? "enable backend"
